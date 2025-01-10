@@ -1,0 +1,1913 @@
+openapi: 3.0.3
+info:
+  title: Source Control API
+  description: ""
+  version: 1.0.0
+servers:
+- url: https://api.unizo.io
+paths:
+  /api/v1/scm/organizations:
+    get:
+      tags:
+      - ScmOrganization
+      description: Get all organizations
+      operationId: getAllOrganizations
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: offset
+        in: query
+        description: Offset
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: limit
+        in: query
+        description: Limit
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: sort
+        in: query
+        description: Sort
+        schema:
+          type: string
+        example: "?sort=sortkey1,-sortkey2,sortkey3"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmOrganizationsResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}:
+    get:
+      tags:
+      - ScmOrganization
+      description: Get organization by identifier
+      operationId: getOrganizationById
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmOrganizationResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/repositories:
+    get:
+      tags:
+      - ScmRepository
+      description: Get all repositories
+      operationId: getAllRepositories
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: offset
+        in: query
+        description: Offset
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: limit
+        in: query
+        description: Limit
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: sort
+        in: query
+        description: Sort
+        schema:
+          type: string
+        example: "?sort=sortkey1,-sortkey2,sortkey3"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmRepositoriesResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/repositories/{repositoryId}:
+    get:
+      tags:
+      - ScmRepository
+      description: Get repository by identifier
+      operationId: getRepositoryById
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmRepositoryResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/repositories/{repositoryId}/branches:
+    get:
+      tags:
+      - ScmBranch
+      description: Get all branches
+      operationId: getAllBranches
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: offset
+        in: query
+        description: Offset
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: limit
+        in: query
+        description: Limit
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: sort
+        in: query
+        description: Sort
+        schema:
+          type: string
+        example: "?sort=sortkey1,-sortkey2,sortkey3"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmBranchesResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/repositories/{repositoryId}/branches/{branchId}:
+    get:
+      tags:
+      - ScmBranch
+      description: Get repository by identifier
+      operationId: getBranchById
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: branchId
+        in: path
+        description: Branch ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmBranchResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/repositories/{repositoryId}/commits:
+    get:
+      tags:
+      - ScmCommit
+      description: Get all Commits
+      operationId: getAllCommits
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: offset
+        in: query
+        description: Offset
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: limit
+        in: query
+        description: Limit
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: sort
+        in: query
+        description: Sort
+        schema:
+          type: string
+        example: "?sort=sortkey1,-sortkey2,sortkey3"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmCommitsResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/repositories/{repositoryId}/commits/{commitId}:
+    get:
+      tags:
+      - ScmCommit
+      description: Get commit by identifier
+      operationId: getCommitById
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: commitId
+        in: path
+        description: Commit ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmCommitResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/repositories/{repositoryId}/pullRequests:
+    get:
+      tags:
+      - PullRequest
+      description: Get all PullRequests
+      operationId: getAllPullRequests
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: offset
+        in: query
+        description: Offset
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: limit
+        in: query
+        description: Limit
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: sort
+        in: query
+        description: Sort
+        schema:
+          type: string
+        example: "?sort=sortkey1,-sortkey2,sortkey3"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/pullRequestsResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+    post:
+      tags:
+      - PullRequest
+      description: Create PullRequest
+      operationId: Create PullRequest
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pullRequestRequest'
+        required: true
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/pullRequestResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/repositories/{repositoryId}/pullRequests/{pullRequestId}:
+    get:
+      tags:
+      - PullRequest
+      description: Get repository by identifier
+      operationId: getPullRequestById
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: pullRequestId
+        in: path
+        description: Pull Request ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/pullRequestResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+    put:
+      tags:
+      - PullRequest
+      description: Update PullRequest
+      operationId: Update PullRequest
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: repositoryId
+        in: path
+        description: Repository ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: pullRequestId
+        in: path
+        description: Pull Request ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/pullRequestRequest'
+        required: true
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/pullRequestResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/projects:
+    get:
+      tags:
+      - ScmProject
+      description: Get all Projects
+      operationId: getAllProjects
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: offset
+        in: query
+        description: Offset
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: limit
+        in: query
+        description: Limit
+        schema:
+          type: integer
+        example: ?offset=20&limit=10
+      - name: sort
+        in: query
+        description: Sort
+        schema:
+          type: string
+        example: "?sort=sortkey1,-sortkey2,sortkey3"
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmProjectsResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+  /api/v1/scm/organizations/{organizationId}/projects/{projectId}:
+    get:
+      tags:
+      - ScmProject
+      description: Get repository by identifier
+      operationId: getProjectById
+      parameters:
+      - name: integrationid
+        in: header
+        description: Integration Identifier
+        required: true
+        schema:
+          $ref: '#/components/schemas/uuid'
+      - name: organizationId
+        in: path
+        description: Organization ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      - name: projectId
+        in: path
+        description: Project ID
+        required: true
+        schema:
+          $ref: '#/components/schemas/string'
+      responses:
+        "200":
+          description: Successful Operation
+          content:
+            application/json; charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/scmProjectResponse'
+        "400":
+          description: Bad Request
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "401":
+          description: Unauthorized
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "403":
+          description: Forbidden
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "404":
+          description: Not Found
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+        "500":
+          description: Internal Server Error
+          headers:
+            correlationId:
+              $ref: '#/components/headers/CorrelationId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorList'
+components:
+  schemas:
+    uuid:
+      type: string
+      description: Unique Identifier
+      format: uuid
+      example: 7f3b50d1-106c-42a9-87a0-4d20282d18b6
+    scmOrganizationsResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/pagination'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/scmOrganizationResponse'
+      description: Scm Organizations response
+    scmOrganizationResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/string'
+        type:
+          $ref: '#/components/schemas/string'
+        description:
+          $ref: '#/components/schemas/string'
+        login:
+          $ref: '#/components/schemas/string'
+        url:
+          $ref: '#/components/schemas/uri'
+        twoFactorRequirementEnabled:
+          $ref: '#/components/schemas/string'
+        membersCanCreatePublicRepositories:
+          $ref: '#/components/schemas/string'
+        avatarUrl:
+          $ref: '#/components/schemas/uri'
+        createdAt:
+          $ref: '#/components/schemas/string'
+        updatedAt:
+          $ref: '#/components/schemas/string'
+      description: Scm Common Organization Service Model
+    errorList:
+      required:
+      - errorCode
+      - errorMessage
+      type: array
+      description: Error List
+      items:
+        $ref: '#/components/schemas/errorList_inner'
+    string:
+      type: string
+      description: String
+      example: anyString
+    scmRepositoriesResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/pagination'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/scmRepositoryResponse'
+      description: Scm Repositories Model
+    scmRepositoryResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/string'
+        description:
+          $ref: '#/components/schemas/string'
+        fullName:
+          $ref: '#/components/schemas/string'
+        language:
+          $ref: '#/components/schemas/string'
+        download:
+          $ref: '#/components/schemas/download'
+        size:
+          $ref: '#/components/schemas/string'
+        private:
+          $ref: '#/components/schemas/booleanNoDefault'
+        archived:
+          $ref: '#/components/schemas/booleanNoDefault'
+        organization:
+          $ref: '#/components/schemas/string'
+        url:
+          $ref: '#/components/schemas/string'
+        defaultBranch:
+          $ref: '#/components/schemas/string'
+        createdAt:
+          $ref: '#/components/schemas/string'
+        updatedAt:
+          $ref: '#/components/schemas/string'
+        changeLog:
+          $ref: '#/components/schemas/changeLog'
+      description: Scm Repository Model
+    scmBranchesResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/pagination'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/scmBranchResponse'
+      description: Scm Branches Model
+    scmBranchResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/string'
+        name:
+          $ref: '#/components/schemas/string'
+        sha:
+          $ref: '#/components/schemas/string'
+        url:
+          $ref: '#/components/schemas/string'
+        download:
+          $ref: '#/components/schemas/download'
+        enabled:
+          $ref: '#/components/schemas/booleanNoDefault'
+        authorName:
+          $ref: '#/components/schemas/string'
+        authorDate:
+          $ref: '#/components/schemas/dateTime'
+        committerName:
+          $ref: '#/components/schemas/string'
+        committerDate:
+          $ref: '#/components/schemas/dateTime'
+      description: Common Branch Service Model
+    scmCommitsResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/pagination'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/scmCommitResponse'
+      description: Scm Commites Model
+    scmCommitResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/string'
+        url:
+          $ref: '#/components/schemas/uri'
+        sha:
+          $ref: '#/components/schemas/string'
+        author:
+          $ref: '#/components/schemas/string'
+        parents:
+          $ref: '#/components/schemas/parents'
+      description: Common Commit Service Model
+    pullRequestsResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/pagination'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/pullRequestResponse'
+      description: Scm PullRequests Model
+    pullRequestResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/string'
+        name:
+          $ref: '#/components/schemas/string'
+        title:
+          $ref: '#/components/schemas/string'
+        description:
+          $ref: '#/components/schemas/string'
+        state:
+          $ref: '#/components/schemas/string'
+        nodeId:
+          $ref: '#/components/schemas/string'
+        htmlUrl:
+          $ref: '#/components/schemas/string'
+        creator:
+          $ref: '#/components/schemas/string'
+        count:
+          $ref: '#/components/schemas/string'
+        visibility:
+          $ref: '#/components/schemas/string'
+      description: Common PullRequest Service Model
+    pullRequestRequest:
+      type: object
+      properties:
+        title:
+          $ref: '#/components/schemas/string'
+        description:
+          $ref: '#/components/schemas/string'
+        source:
+          $ref: '#/components/schemas/string'
+        state:
+          $ref: '#/components/schemas/string'
+        target:
+          $ref: '#/components/schemas/string'
+        label:
+          $ref: '#/components/schemas/string'
+        base:
+          $ref: '#/components/schemas/string'
+      description: PullRequest request
+    metadataConfigPullRequestRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/metadataConfigType'
+      description: Field type configs request
+      discriminator:
+        propertyName: type
+        mapping:
+          SCM_PULL_REQUEST_CREATE: '#/components/schemas/metadataConfigPullRequestCreateRequest'
+          SCM_PULL_REQUEST_UPDATE: '#/components/schemas/metadataConfigPullRequestUpdateRequest'
+    metadataConfigPullRequestCreateRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/metadataConfigPullRequestCreateRequestData'
+      description: Field type config data of create
+      allOf:
+      - $ref: '#/components/schemas/metadataConfigPullRequestRequest'
+    metadataConfigPullRequestUpdateRequest:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/metadataConfigPullRequestUpdateRequestData'
+      description: Field type config data of pull request update
+      allOf:
+      - $ref: '#/components/schemas/metadataConfigPullRequestRequest'
+    metadataConfigPullRequestsResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/metadataConfigs'
+      description: Metadata Configs Common Service Model
+    metadataConfigs:
+      type: array
+      description: Metadata Configs list
+      items:
+        $ref: '#/components/schemas/metadataConfigPullRequestResponse'
+    metadataConfigPullRequestResponse:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/propertyType'
+        id:
+          $ref: '#/components/schemas/string'
+        key:
+          $ref: '#/components/schemas/string'
+        label:
+          $ref: '#/components/schemas/string'
+        labelKey:
+          $ref: '#/components/schemas/string'
+        property:
+          $ref: '#/components/schemas/string'
+        helpText:
+          $ref: '#/components/schemas/string'
+        placeholderValue:
+          $ref: '#/components/schemas/string'
+        required:
+          $ref: '#/components/schemas/boolean'
+        defaultValue:
+          $ref: '#/components/schemas/defaultValue'
+      description: Metadata Configs Common Service Model
+      discriminator:
+        propertyName: type
+        mapping:
+          TEXT_NUMBER: '#/components/schemas/propertyTextNumber'
+          TEXT_STRING: '#/components/schemas/propertyTextString'
+          LIST_STRING: '#/components/schemas/propertyListString'
+    propertyTextNumber:
+      type: object
+      properties:
+        validate:
+          type: array
+          description: list of validate
+          items:
+            $ref: '#/components/schemas/validate'
+      description: Property of type text number
+      allOf:
+      - $ref: '#/components/schemas/metadataConfigPullRequestResponse'
+    propertyTextString:
+      type: object
+      properties:
+        validate:
+          type: array
+          description: list of validate
+          items:
+            $ref: '#/components/schemas/validate'
+      description: Property of type text string
+      allOf:
+      - $ref: '#/components/schemas/metadataConfigPullRequestResponse'
+    propertyListString:
+      type: object
+      properties:
+        links:
+          $ref: '#/components/schemas/links'
+        attributes:
+          $ref: '#/components/schemas/attributes'
+      description: Property of type list string
+      allOf:
+      - $ref: '#/components/schemas/metadataConfigPullRequestResponse'
+    scmProjectsResponse:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/pagination'
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/scmProjectResponse'
+      description: Scm Projects Model
+    scmProjectResponse:
+      type: object
+      properties:
+        count:
+          $ref: '#/components/schemas/string'
+        value:
+          $ref: '#/components/schemas/adoResponses'
+      description: Common Project Service Model
+    testResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/error'
+        pagination:
+          $ref: '#/components/schemas/pagination'
+        scmBranchResponse:
+          $ref: '#/components/schemas/scmBranchCommonModel'
+        scmCommitResponse:
+          $ref: '#/components/schemas/scmCommitCommonModel'
+        scmOrganizationCommonModel:
+          $ref: '#/components/schemas/scmOrganizationCommonModel'
+        pullRequestResponse:
+          $ref: '#/components/schemas/pullRequestCommonModel'
+        scmRepositoryResponse:
+          $ref: '#/components/schemas/scmRepositoryCommonModel'
+      description: Test Specification
+    pagination:
+      type: object
+      properties:
+        total:
+          maxLength: 100
+          minLength: 1
+          type: integer
+          description: Total number of elements
+        limit:
+          maxLength: 100
+          minLength: 1
+          type: integer
+          description: Specify the page size in the query
+        offset:
+          maxLength: 100
+          minLength: 1
+          type: integer
+          description: Specify where to start a page
+        previous:
+          maxLength: 100
+          minLength: 1
+          type: integer
+          description: Go to next page
+        next:
+          maxLength: 100
+          minLength: 1
+          type: integer
+          description: Go to previous page
+      description: Pagination
+    uri:
+      type: string
+      description: URI
+      format: uri
+    download:
+      type: object
+      properties:
+        url:
+          $ref: '#/components/schemas/string'
+        type:
+          $ref: '#/components/schemas/downloadType'
+      description: Download container specification
+    booleanNoDefault:
+      type: boolean
+      description: Boolean type
+      format: boolean
+    changeLog:
+      type: object
+      properties:
+        createdDateTime:
+          $ref: '#/components/schemas/dateTime'
+        lastUpdatedDateTime:
+          $ref: '#/components/schemas/dateTime'
+        createdBy:
+          $ref: '#/components/schemas/user'
+        lastUpdatedBy:
+          $ref: '#/components/schemas/user'
+      description: ChangeLog specification
+    dateTime:
+      type: string
+      description: Date Time
+      format: date-time
+    parents:
+      type: array
+      items:
+        $ref: '#/components/schemas/parent'
+    parent:
+      type: object
+      properties:
+        sha:
+          $ref: '#/components/schemas/string'
+        url:
+          $ref: '#/components/schemas/string'
+        htmlUrl:
+          $ref: '#/components/schemas/string'
+      description: Parent Common Model
+    metadataConfigType:
+      type: string
+      description: Metadata configs type
+      enum:
+      - SCM_PULL_REQUEST_CREATE
+      - SCM_PULL_REQUEST_UPDATE
+    metadataConfigPullRequestCreateRequestData:
+      type: object
+      properties:
+        collections:
+          type: array
+          description: list of collection
+          items:
+            $ref: '#/components/schemas/collection'
+      description: Metadata config pull request create Specification
+    metadataConfigPullRequestUpdateRequestData:
+      type: object
+      properties:
+        collections:
+          type: array
+          description: list of collection
+          items:
+            $ref: '#/components/schemas/collection'
+      description: Metadata config pull request update Specification
+    propertyType:
+      type: string
+      description: Resource property type
+      enum:
+      - TEXT_NUMBER
+      - TEXT_STRING
+      - LIST_STRING
+    boolean:
+      type: boolean
+      description: Boolean type
+      format: boolean
+      default: true
+    defaultValue:
+      type: object
+      properties:
+        key:
+          $ref: '#/components/schemas/string'
+        label:
+          $ref: '#/components/schemas/string'
+        value:
+          $ref: '#/components/schemas/string'
+      description: Default value container
+    validate:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/string'
+        value:
+          $ref: '#/components/schemas/string'
+        errorMessage:
+          $ref: '#/components/schemas/string'
+        errorKey:
+          $ref: '#/components/schemas/string'
+      description: Validate container
+    links:
+      type: array
+      description: list of Links
+      items:
+        $ref: '#/components/schemas/link'
+    link:
+      type: object
+      properties:
+        rel:
+          type: string
+          description: Attribute describing relationship
+        href:
+          type: string
+          description: Absolute URL that is the subject of the link's context
+          format: uri
+        method:
+          type: string
+          description: HTTP method used in the API call to request the specified resource
+        contentType:
+          type: string
+          description: MIME type indicating the document format
+          default: application/json
+        authenticate:
+          type: boolean
+          description: flag showing whether authentication is required to access the
+            linked resource
+          default: true
+      description: Link specification
+    attributes:
+      type: array
+      description: list of attributes
+      items:
+        $ref: '#/components/schemas/attribute'
+    attribute:
+      type: object
+      properties:
+        key:
+          maxLength: 100
+          type: string
+          example: blood group
+        value:
+          maxLength: 100
+          type: string
+          example: O +ve
+      description: Attribute representing key/value pair
+    adoResponses:
+      type: array
+      items:
+        $ref: '#/components/schemas/adoResponse'
+    adoResponse:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/string'
+        name:
+          $ref: '#/components/schemas/string'
+        description:
+          $ref: '#/components/schemas/string'
+        url:
+          $ref: '#/components/schemas/string'
+        state:
+          $ref: '#/components/schemas/string'
+        revision:
+          $ref: '#/components/schemas/string'
+        visibility:
+          $ref: '#/components/schemas/string'
+        lastUpdateTime:
+          $ref: '#/components/schemas/string'
+      description: Ado response Common Model
+    error:
+      type: object
+      properties:
+        property:
+          maxLength: 250
+          type: string
+          description: Validation Error Property
+        message:
+          maxLength: 250
+          type: string
+          description: Validation Error Message
+        severity:
+          type: string
+          description: Validation Error Message
+          enum:
+          - CRITICAL
+          - WARNING
+      description: Holds Validation Errors
+    scmBranchCommonModel:
+      type: object
+      properties:
+        href:
+          $ref: '#/components/schemas/string'
+        type:
+          $ref: '#/components/schemas/string'
+        id:
+          $ref: '#/components/schemas/string'
+        name:
+          $ref: '#/components/schemas/string'
+      description: Common Branch Model
+    scmCommitCommonModel:
+      type: object
+      properties:
+        href:
+          $ref: '#/components/schemas/string'
+        type:
+          $ref: '#/components/schemas/string'
+        id:
+          $ref: '#/components/schemas/string'
+        name:
+          $ref: '#/components/schemas/string'
+      description: Common Commit Model
+    scmOrganizationCommonModel:
+      type: object
+      properties:
+        href:
+          $ref: '#/components/schemas/string'
+        type:
+          $ref: '#/components/schemas/string'
+        id:
+          $ref: '#/components/schemas/string'
+        name:
+          $ref: '#/components/schemas/string'
+      description: Common Scm  Organization Service Model
+    pullRequestCommonModel:
+      type: object
+      properties:
+        href:
+          $ref: '#/components/schemas/string'
+        type:
+          $ref: '#/components/schemas/string'
+        id:
+          $ref: '#/components/schemas/string'
+        name:
+          $ref: '#/components/schemas/string'
+      description: Pull Request Commit Model
+    scmRepositoryCommonModel:
+      type: object
+      properties:
+        href:
+          $ref: '#/components/schemas/string'
+        type:
+          $ref: '#/components/schemas/string'
+        id:
+          $ref: '#/components/schemas/string'
+        name:
+          $ref: '#/components/schemas/string'
+      description: Common Repository Model
+    downloadType:
+      type: string
+      description: Download type
+      enum:
+      - ONE_STEP_DOWNLOAD
+      - TWO_STEPS_DOWNLOAD
+      - THREE_STEPS_DOWNLOAD
+    user:
+      type: object
+      properties:
+        href:
+          $ref: '#/components/schemas/href'
+        id:
+          $ref: '#/components/schemas/uuid'
+        firstName:
+          $ref: '#/components/schemas/string'
+        lastName:
+          $ref: '#/components/schemas/string'
+        avatar:
+          $ref: '#/components/schemas/avatar'
+      description: User specification
+    collection:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/uuid'
+        type:
+          $ref: '#/components/schemas/metadataConfigCollectionType'
+      description: Collection container
+    href:
+      type: string
+      description: App URI
+      format: uri
+      readOnly: true
+      example: https://api.unizo.io/api/v1/apps/3117de47-add6-4da2-acdc-68c92eeb5c25
+    avatar:
+      type: object
+      properties:
+        original:
+          $ref: '#/components/schemas/href'
+        xSmall:
+          $ref: '#/components/schemas/href'
+        small:
+          $ref: '#/components/schemas/href'
+        medium:
+          $ref: '#/components/schemas/href'
+        large:
+          $ref: '#/components/schemas/href'
+      description: Avatar Specification
+    metadataConfigCollectionType:
+      type: string
+      description: Metadata type configs collection type
+      enum:
+      - BOARD
+      - LIST
+    errorList_inner:
+      type: object
+      properties:
+        errorCode:
+          pattern: "^AP-\\d{7}$"
+          type: string
+        errorMessage:
+          type: string
+        statusCode:
+          type: integer
+        correlationId:
+          type: string
+        details:
+          type: string
+        property:
+          type: string
+        help:
+          type: string
+        additionalInfo:
+          type: array
+          items:
+            type: object
+            properties:
+              property:
+                type: string
+              reason:
+                type: string
+      description: Error with details
+  headers:
+    CorrelationId:
+      description: Correlation Identifier
+      schema:
+        $ref: '#/components/schemas/uuid'
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      description: API key provided in console
+      name: apiKey
+      in: header
