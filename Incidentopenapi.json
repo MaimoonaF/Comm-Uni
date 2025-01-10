@@ -1,0 +1,2249 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Incidents API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.unizo.io"
+    }
+  ],
+  "paths": {
+    "/api/v1/incident/organizations": {
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "description": "List Organizations",
+        "operationId": "List Organizations",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort",
+            "schema": {
+              "type": "string"
+            },
+            "example": "?sort=sortkey1,-sortkey2,sortkey3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/organizationsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/incident/organizations/{organizationId}": {
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "description": "Get Organizations",
+        "operationId": "Get Organizations",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/organizationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/incident/{organizationId}/services": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "description": "List Services",
+        "operationId": "List Services",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort",
+            "schema": {
+              "type": "string"
+            },
+            "example": "?sort=sortkey1,-sortkey2,sortkey3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/servicesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/incident/{organizationId}/services/{serviceId}": {
+      "get": {
+        "tags": [
+          "Service"
+        ],
+        "description": "Get Services by Identifier",
+        "operationId": "Get Services",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/serviceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/incident/{organizationId}/services/{serviceId}/teams": {
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "description": "List Teams",
+        "operationId": "List Teams",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort",
+            "schema": {
+              "type": "string"
+            },
+            "example": "?sort=sortkey1,-sortkey2,sortkey3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/teamsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/incident/{organizationId}/services/{serviceId}/teams/{teamId}": {
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "description": "Get Teams by Identifier",
+        "operationId": "Get Teams",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "teamId",
+            "in": "path",
+            "description": "Team ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/teamResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/incident/{organizationId}/services/{serviceId}/teams/{teamId}/incidents": {
+      "get": {
+        "tags": [
+          "Incident"
+        ],
+        "description": "List Incidents",
+        "operationId": "List Incidents",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "teamId",
+            "in": "path",
+            "description": "Team ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort",
+            "schema": {
+              "type": "string"
+            },
+            "example": "?sort=sortkey1,-sortkey2,sortkey3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/incidentsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Incident"
+        ],
+        "description": "Create Incident",
+        "operationId": "Create Incident",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "teamId",
+            "in": "path",
+            "description": "Team ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/incidentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/incidentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/incident/{organizationId}/services/{serviceId}/teams/{teamId}/incidents/{incidentId}": {
+      "get": {
+        "tags": [
+          "Incident"
+        ],
+        "description": "Get Incidents by Identifier",
+        "operationId": "Get Incidents",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "teamId",
+            "in": "path",
+            "description": "Team ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "incidentId",
+            "in": "path",
+            "description": "Incident ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/incidentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Incident"
+        ],
+        "description": "Update Incidents",
+        "operationId": "Update Incidents",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "serviceId",
+            "in": "path",
+            "description": "Service ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "teamId",
+            "in": "path",
+            "description": "Team ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "incidentId",
+            "in": "path",
+            "description": "Incident ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/incidentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/incidentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "uuid": {
+        "type": "string",
+        "description": "Unique Identifier",
+        "format": "uuid",
+        "example": "7f3b50d1-106c-42a9-87a0-4d20282d18b6"
+      },
+      "organizationsResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/organizationResponse"
+            }
+          }
+        },
+        "description": "Communications Organizations response"
+      },
+      "organizationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "login": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "url": {
+            "$ref": "#/components/schemas/string"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/changeLog"
+          }
+        },
+        "description": "Binary Common Organization Service Model"
+      },
+      "errorList": {
+        "required": [
+          "errorCode",
+          "errorMessage"
+        ],
+        "type": "array",
+        "description": "Error List",
+        "items": {
+          "$ref": "#/components/schemas/errorList_inner"
+        }
+      },
+      "string": {
+        "type": "string",
+        "description": "String",
+        "example": "anyString"
+      },
+      "servicesResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/serviceResponse"
+            }
+          }
+        },
+        "description": "Incident Service Model"
+      },
+      "serviceResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "description": {
+            "$ref": "#/components/schemas/string"
+          },
+          "team": {
+            "$ref": "#/components/schemas/teamCommonModel"
+          },
+          "url": {
+            "$ref": "#/components/schemas/uri"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/changeLog"
+          }
+        },
+        "description": "Incident Incident Model"
+      },
+      "teamsResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/teamResponse"
+            }
+          }
+        },
+        "description": "Team Service Model"
+      },
+      "teamResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "description": {
+            "$ref": "#/components/schemas/string"
+          },
+          "url": {
+            "$ref": "#/components/schemas/uri"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/changeLog"
+          }
+        },
+        "description": "Team Model"
+      },
+      "incidentsResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/incidentResponse"
+            }
+          }
+        },
+        "description": "Incidents Model"
+      },
+      "incidentResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "title": {
+            "$ref": "#/components/schemas/string"
+          },
+          "login": {
+            "$ref": "#/components/schemas/string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/string"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/priority"
+          },
+          "description": {
+            "$ref": "#/components/schemas/string"
+          },
+          "incidentKey": {
+            "$ref": "#/components/schemas/string"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/string"
+          },
+          "url": {
+            "$ref": "#/components/schemas/uri"
+          },
+          "urgency": {
+            "$ref": "#/components/schemas/urgencyType"
+          },
+          "username": {
+            "$ref": "#/components/schemas/string"
+          },
+          "targets": {
+            "$ref": "#/components/schemas/targets"
+          },
+          "project": {
+            "$ref": "#/components/schemas/project"
+          },
+          "service": {
+            "$ref": "#/components/schemas/service"
+          },
+          "isMultiResponder": {
+            "$ref": "#/components/schemas/boolean"
+          },
+          "team": {
+            "$ref": "#/components/schemas/teamCommonModel"
+          },
+          "services": {
+            "$ref": "#/components/schemas/servicesCommonModel"
+          },
+          "organization": {
+            "$ref": "#/components/schemas/organizationCommonModel"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/changeLog"
+          }
+        },
+        "description": "Incident Model"
+      },
+      "urgencyType": {
+        "type": "string",
+        "description": "Urgency",
+        "enum": [
+          "HIGH",
+          "LOW"
+        ]
+      },
+      "incidentRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "title": {
+            "$ref": "#/components/schemas/string"
+          },
+          "description": {
+            "$ref": "#/components/schemas/string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/string"
+          },
+          "username": {
+            "$ref": "#/components/schemas/string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "targets": {
+            "$ref": "#/components/schemas/targets"
+          },
+          "isMultiResponder": {
+            "$ref": "#/components/schemas/boolean"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/priority"
+          },
+          "project": {
+            "$ref": "#/components/schemas/project"
+          },
+          "service": {
+            "$ref": "#/components/schemas/service"
+          }
+        },
+        "description": "Incident Request"
+      },
+      "metadataConfigRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/metadataConfigType"
+          }
+        },
+        "description": "Field type configs request"
+      },
+      "metadataConfigsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/metadataConfigs"
+          }
+        },
+        "description": "Metadata Configs Common Service Model"
+      },
+      "metadataConfigs": {
+        "type": "array",
+        "description": "Metadata Configs list",
+        "items": {
+          "$ref": "#/components/schemas/metadataConfigResponse"
+        }
+      },
+      "metadataConfigResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/propertyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "key": {
+            "$ref": "#/components/schemas/string"
+          },
+          "label": {
+            "$ref": "#/components/schemas/string"
+          },
+          "labelKey": {
+            "$ref": "#/components/schemas/string"
+          },
+          "property": {
+            "$ref": "#/components/schemas/string"
+          },
+          "helpText": {
+            "$ref": "#/components/schemas/string"
+          },
+          "placeholderValue": {
+            "$ref": "#/components/schemas/string"
+          },
+          "required": {
+            "$ref": "#/components/schemas/boolean"
+          },
+          "defaultValue": {
+            "$ref": "#/components/schemas/defaultValue"
+          }
+        },
+        "description": "Metadata Configs Common Service Model",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "TEXT_NUMBER": "#/components/schemas/propertyTextNumber",
+            "TEXT_STRING": "#/components/schemas/propertyTextString",
+            "LIST_STRING": "#/components/schemas/propertyListString"
+          }
+        }
+      },
+      "propertyTextNumber": {
+        "type": "object",
+        "properties": {
+          "validate": {
+            "type": "array",
+            "description": "list of validate",
+            "items": {
+              "$ref": "#/components/schemas/validate"
+            }
+          }
+        },
+        "description": "Property of type text number",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/metadataConfigResponse"
+          }
+        ]
+      },
+      "propertyTextString": {
+        "type": "object",
+        "properties": {
+          "validate": {
+            "type": "array",
+            "description": "list of validate",
+            "items": {
+              "$ref": "#/components/schemas/validate"
+            }
+          }
+        },
+        "description": "Property of type text string",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/metadataConfigResponse"
+          }
+        ]
+      },
+      "propertyListString": {
+        "type": "object",
+        "properties": {
+          "links": {
+            "$ref": "#/components/schemas/links"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/attributes"
+          }
+        },
+        "description": "Property of type list string",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/metadataConfigResponse"
+          }
+        ]
+      },
+      "testResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/error"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "organizationCommonModel": {
+            "$ref": "#/components/schemas/organizationCommonModel"
+          }
+        },
+        "description": "Test Specification"
+      },
+      "pagination": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Total number of elements"
+          },
+          "limit": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Specify the page size in the query"
+          },
+          "offset": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Specify where to start a page"
+          },
+          "previous": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Go to next page"
+          },
+          "next": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Go to previous page"
+          }
+        },
+        "description": "Pagination"
+      },
+      "changeLog": {
+        "type": "object",
+        "properties": {
+          "createdDateTime": {
+            "$ref": "#/components/schemas/dateTime"
+          },
+          "lastUpdatedDateTime": {
+            "$ref": "#/components/schemas/dateTime"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/user"
+          },
+          "lastUpdatedBy": {
+            "$ref": "#/components/schemas/user"
+          }
+        },
+        "description": "ChangeLog specification"
+      },
+      "teamCommonModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "$ref": "#/components/schemas/string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Common team Model"
+      },
+      "uri": {
+        "type": "string",
+        "description": "URI",
+        "format": "uri"
+      },
+      "priority": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Priority container"
+      },
+      "targets": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/target"
+        }
+      },
+      "target": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "slug": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Target container"
+      },
+      "project": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Project container"
+      },
+      "service": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Service container"
+      },
+      "boolean": {
+        "type": "boolean",
+        "description": "Boolean type",
+        "format": "boolean"
+      },
+      "servicesCommonModel": {
+        "type": "array",
+        "description": "List of service Common Model",
+        "items": {
+          "$ref": "#/components/schemas/serviceCommonModel"
+        }
+      },
+      "serviceCommonModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "$ref": "#/components/schemas/string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Common service Model"
+      },
+      "organizationCommonModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "$ref": "#/components/schemas/string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Common organization Model"
+      },
+      "metadataConfigType": {
+        "type": "string",
+        "description": "Metadata configs type",
+        "enum": [
+          "INCIDENT_CREATE",
+          "INCIDENT_UPDATE"
+        ]
+      },
+      "propertyType": {
+        "type": "string",
+        "description": "Resource property type",
+        "enum": [
+          "TEXT_NUMBER",
+          "TEXT_STRING",
+          "LIST_STRING"
+        ]
+      },
+      "defaultValue": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/string"
+          },
+          "label": {
+            "$ref": "#/components/schemas/string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Default value container"
+      },
+      "validate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/string"
+          },
+          "errorMessage": {
+            "$ref": "#/components/schemas/string"
+          },
+          "errorKey": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Validate container"
+      },
+      "links": {
+        "type": "array",
+        "description": "list of Links",
+        "items": {
+          "$ref": "#/components/schemas/link"
+        }
+      },
+      "link": {
+        "type": "object",
+        "properties": {
+          "rel": {
+            "type": "string",
+            "description": "Attribute describing relationship"
+          },
+          "href": {
+            "type": "string",
+            "description": "Absolute URL that is the subject of the link's context",
+            "format": "uri"
+          },
+          "method": {
+            "type": "string",
+            "description": "HTTP method used in the API call to request the specified resource"
+          },
+          "contentType": {
+            "type": "string",
+            "description": "MIME type indicating the document format",
+            "default": "application/json"
+          },
+          "authenticate": {
+            "type": "boolean",
+            "description": "flag showing whether authentication is required to access the linked resource",
+            "default": true
+          }
+        },
+        "description": "Link specification"
+      },
+      "attributes": {
+        "type": "array",
+        "description": "list of attributes",
+        "items": {
+          "$ref": "#/components/schemas/attribute"
+        }
+      },
+      "attribute": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "maxLength": 100,
+            "type": "string",
+            "example": "blood group"
+          },
+          "value": {
+            "maxLength": 100,
+            "type": "string",
+            "example": "O +ve"
+          }
+        },
+        "description": "Attribute representing key/value pair"
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "property": {
+            "maxLength": 250,
+            "type": "string",
+            "description": "Validation Error Property"
+          },
+          "message": {
+            "maxLength": 250,
+            "type": "string",
+            "description": "Validation Error Message"
+          },
+          "severity": {
+            "type": "string",
+            "description": "Validation Error Message",
+            "enum": [
+              "CRITICAL",
+              "WARNING"
+            ]
+          }
+        },
+        "description": "Holds Validation Errors"
+      },
+      "dateTime": {
+        "type": "string",
+        "description": "Date Time",
+        "format": "date-time"
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "$ref": "#/components/schemas/href"
+          },
+          "id": {
+            "$ref": "#/components/schemas/uuid"
+          },
+          "firstName": {
+            "$ref": "#/components/schemas/string"
+          },
+          "lastName": {
+            "$ref": "#/components/schemas/string"
+          },
+          "avatar": {
+            "$ref": "#/components/schemas/avatar"
+          }
+        },
+        "description": "User specification"
+      },
+      "href": {
+        "type": "string",
+        "description": "App URI",
+        "format": "uri",
+        "readOnly": true,
+        "example": "https://api.unizo.io/api/v1/apps/3117de47-add6-4da2-acdc-68c92eeb5c25"
+      },
+      "avatar": {
+        "type": "object",
+        "properties": {
+          "original": {
+            "$ref": "#/components/schemas/href"
+          },
+          "xSmall": {
+            "$ref": "#/components/schemas/href"
+          },
+          "small": {
+            "$ref": "#/components/schemas/href"
+          },
+          "medium": {
+            "$ref": "#/components/schemas/href"
+          },
+          "large": {
+            "$ref": "#/components/schemas/href"
+          }
+        },
+        "description": "Avatar Specification"
+      },
+      "errorList_inner": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "pattern": "^AP-\\d{7}$",
+            "type": "string"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "integer"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          },
+          "property": {
+            "type": "string"
+          },
+          "help": {
+            "type": "string"
+          },
+          "additionalInfo": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "property": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "Error with details"
+      }
+    },
+    "headers": {
+      "CorrelationId": {
+        "description": "Correlation Identifier",
+        "schema": {
+          "$ref": "#/components/schemas/uuid"
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
