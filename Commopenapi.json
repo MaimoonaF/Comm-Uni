@@ -1,0 +1,1731 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Communications API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.unizo.io"
+    }
+  ],
+  "paths": {
+    "/api/v1/comms/organizations": {
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "description": "List Organizations",
+        "operationId": "List Organizations",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort",
+            "schema": {
+              "type": "string"
+            },
+            "example": "?sort=sortkey1,-sortkey2,sortkey3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/organizationsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comms/organizations/{organizationId}": {
+      "get": {
+        "tags": [
+          "Organization"
+        ],
+        "description": "Get Organizations",
+        "operationId": "Get Organizations",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/organizationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comms/{organizationId}/channels": {
+      "get": {
+        "tags": [
+          "Channel"
+        ],
+        "description": "List Channels",
+        "operationId": "List Channels",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "parentId",
+            "in": "query",
+            "description": "Type",
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "nativeResponse",
+            "in": "query",
+            "description": "Type",
+            "schema": {
+              "$ref": "#/components/schemas/boolean"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort",
+            "schema": {
+              "type": "string"
+            },
+            "example": "?sort=sortkey1,-sortkey2,sortkey3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/channelsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comms/{organizationId}/channels/{channelId}": {
+      "get": {
+        "tags": [
+          "Channel"
+        ],
+        "description": "Get Channels",
+        "operationId": "Get Channels",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "path",
+            "description": "Channel ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "parentId",
+            "in": "query",
+            "description": "Type",
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "nativeResponse",
+            "in": "query",
+            "description": "Type",
+            "schema": {
+              "$ref": "#/components/schemas/boolean"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort",
+            "schema": {
+              "type": "string"
+            },
+            "example": "?sort=sortkey1,-sortkey2,sortkey3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/channelResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comms/{organizationId}/channels/{channelId}/messages": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "description": "List Messages",
+        "operationId": "List Messages",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "path",
+            "description": "Channel ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "?offset=20&limit=10"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort",
+            "schema": {
+              "type": "string"
+            },
+            "example": "?sort=sortkey1,-sortkey2,sortkey3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/messagesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Message"
+        ],
+        "description": "Create message",
+        "operationId": "Create Message",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "path",
+            "description": "Channel ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/messageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comms/{organizationId}/channels/{channelId}/messages/{messageId}": {
+      "get": {
+        "tags": [
+          "Message"
+        ],
+        "description": "Get message by identifier",
+        "operationId": "Get Messages",
+        "parameters": [
+          {
+            "name": "integrationid",
+            "in": "header",
+            "description": "Integration Identifier",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/uuid"
+            }
+          },
+          {
+            "name": "organizationId",
+            "in": "path",
+            "description": "Organization ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "channelId",
+            "in": "path",
+            "description": "Channel ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          },
+          {
+            "name": "messageId",
+            "in": "path",
+            "description": "Message ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Operation",
+            "content": {
+              "application/json; charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/messageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "correlationId": {
+                "$ref": "#/components/headers/CorrelationId"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorList"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "uuid": {
+        "type": "string",
+        "description": "Unique Identifier",
+        "format": "uuid",
+        "example": "7f3b50d1-106c-42a9-87a0-4d20282d18b6"
+      },
+      "organizationsResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/organizationResponse"
+            }
+          }
+        },
+        "description": "Communications Organizations response"
+      },
+      "organizationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "login": {
+            "$ref": "#/components/schemas/string"
+          },
+          "url": {
+            "$ref": "#/components/schemas/string"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/changeLog"
+          }
+        },
+        "description": "Binary Common Organization Service Model"
+      },
+      "errorList": {
+        "required": [
+          "errorCode",
+          "errorMessage"
+        ],
+        "type": "array",
+        "description": "Error List",
+        "items": {
+          "$ref": "#/components/schemas/errorList_inner"
+        }
+      },
+      "string": {
+        "type": "string",
+        "description": "String",
+        "example": "anyString"
+      },
+      "boolean": {
+        "type": "boolean",
+        "description": "Boolean type",
+        "format": "boolean"
+      },
+      "channelsResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/channelResponse"
+            }
+          }
+        },
+        "description": "Communications Channels Model"
+      },
+      "channelResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/channelType"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "fullName": {
+            "$ref": "#/components/schemas/string"
+          },
+          "description": {
+            "$ref": "#/components/schemas/string"
+          },
+          "state": {
+            "$ref": "#/components/schemas/channelState"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/visibility"
+          },
+          "acceptMessage": {
+            "$ref": "#/components/schemas/boolean"
+          },
+          "targetUrl": {
+            "$ref": "#/components/schemas/uri"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/channelCommonModel"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/changeLog"
+          }
+        },
+        "description": "Communications Channel Model"
+      },
+      "channelState": {
+        "type": "string",
+        "description": "Channel state",
+        "enum": [
+          "ACTIVE",
+          "ARCHIVED"
+        ]
+      },
+      "visibility": {
+        "type": "string",
+        "description": "Channel visibility",
+        "enum": [
+          "PRIVATE",
+          "PUBLIC"
+        ]
+      },
+      "messagesResponse": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/messagesResponse"
+            }
+          }
+        },
+        "description": "Communications Messages Model"
+      },
+      "messageRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "messageBody": {
+            "$ref": "#/components/schemas/string"
+          },
+          "attachments": {
+            "$ref": "#/components/schemas/attachments"
+          }
+        },
+        "description": "Message Request"
+      },
+      "messageResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "#/components/schemas/string"
+          },
+          "messageBody": {
+            "$ref": "#/components/schemas/string"
+          },
+          "attachments": {
+            "$ref": "#/components/schemas/attachments"
+          },
+          "changeLog": {
+            "$ref": "#/components/schemas/changeLog"
+          }
+        },
+        "description": "Communications Message Model"
+      },
+      "metadataConfigRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/metadataConfigType"
+          }
+        },
+        "description": "Field type configs request"
+      },
+      "metadataConfigsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/metadataConfigs"
+          }
+        },
+        "description": "Metadata Configs Common Service Model"
+      },
+      "metadataConfigs": {
+        "type": "array",
+        "description": "Metadata Configs list",
+        "items": {
+          "$ref": "#/components/schemas/metadataConfigResponse"
+        }
+      },
+      "metadataConfigResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/propertyType"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "key": {
+            "$ref": "#/components/schemas/string"
+          },
+          "label": {
+            "$ref": "#/components/schemas/string"
+          },
+          "labelKey": {
+            "$ref": "#/components/schemas/string"
+          },
+          "property": {
+            "$ref": "#/components/schemas/string"
+          },
+          "helpText": {
+            "$ref": "#/components/schemas/string"
+          },
+          "placeholderValue": {
+            "$ref": "#/components/schemas/string"
+          },
+          "required": {
+            "$ref": "#/components/schemas/boolean"
+          },
+          "defaultValue": {
+            "$ref": "#/components/schemas/defaultValue"
+          }
+        },
+        "description": "Metadata Configs Common Service Model",
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "TEXT_NUMBER": "#/components/schemas/propertyTextNumber",
+            "TEXT_STRING": "#/components/schemas/propertyTextString",
+            "LIST_STRING": "#/components/schemas/propertyListString"
+          }
+        }
+      },
+      "propertyTextNumber": {
+        "type": "object",
+        "properties": {
+          "validate": {
+            "type": "array",
+            "description": "list of validate",
+            "items": {
+              "$ref": "#/components/schemas/validate"
+            }
+          }
+        },
+        "description": "Property of type text number",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/metadataConfigResponse"
+          }
+        ]
+      },
+      "propertyTextString": {
+        "type": "object",
+        "properties": {
+          "validate": {
+            "type": "array",
+            "description": "list of validate",
+            "items": {
+              "$ref": "#/components/schemas/validate"
+            }
+          }
+        },
+        "description": "Property of type text string",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/metadataConfigResponse"
+          }
+        ]
+      },
+      "propertyListString": {
+        "type": "object",
+        "properties": {
+          "links": {
+            "$ref": "#/components/schemas/links"
+          },
+          "attributes": {
+            "$ref": "#/components/schemas/attributes"
+          }
+        },
+        "description": "Property of type list string",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/metadataConfigResponse"
+          }
+        ]
+      },
+      "testResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/error"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/pagination"
+          },
+          "organizationCommonModel": {
+            "$ref": "#/components/schemas/organizationCommonModel"
+          }
+        },
+        "description": "Test Specification"
+      },
+      "pagination": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Total number of elements"
+          },
+          "limit": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Specify the page size in the query"
+          },
+          "offset": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Specify where to start a page"
+          },
+          "previous": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Go to next page"
+          },
+          "next": {
+            "maxLength": 100,
+            "minLength": 1,
+            "type": "integer",
+            "description": "Go to previous page"
+          }
+        },
+        "description": "Pagination"
+      },
+      "changeLog": {
+        "type": "object",
+        "properties": {
+          "createdDateTime": {
+            "$ref": "#/components/schemas/dateTime"
+          },
+          "lastUpdatedDateTime": {
+            "$ref": "#/components/schemas/dateTime"
+          },
+          "createdBy": {
+            "$ref": "#/components/schemas/user"
+          },
+          "lastUpdatedBy": {
+            "$ref": "#/components/schemas/user"
+          }
+        },
+        "description": "ChangeLog specification"
+      },
+      "channelType": {
+        "type": "string",
+        "description": "Channel type",
+        "enum": [
+          "LIST",
+          "CHANNEL"
+        ]
+      },
+      "uri": {
+        "type": "string",
+        "description": "URI",
+        "format": "uri"
+      },
+      "channelCommonModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "$ref": "#/components/schemas/string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Common Comment Model"
+      },
+      "attachments": {
+        "type": "array",
+        "description": "Attachment Data Model",
+        "items": {
+          "$ref": "#/components/schemas/attachment"
+        }
+      },
+      "attachment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "contentType": {
+            "$ref": "#/components/schemas/string"
+          },
+          "authorName": {
+            "$ref": "#/components/schemas/string"
+          },
+          "title": {
+            "$ref": "#/components/schemas/string"
+          },
+          "titleLink": {
+            "$ref": "#/components/schemas/uri"
+          },
+          "text": {
+            "$ref": "#/components/schemas/string"
+          },
+          "fields": {
+            "type": "array",
+            "description": "Field Data Model",
+            "items": {
+              "$ref": "#/components/schemas/field"
+            }
+          }
+        },
+        "description": "Attachment Data Model"
+      },
+      "field": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "$ref": "#/components/schemas/string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/string"
+          },
+          "short": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Field Data Model"
+      },
+      "metadataConfigType": {
+        "type": "string",
+        "description": "Metadata configs type",
+        "enum": [
+          "MESSAGE_CREATE"
+        ]
+      },
+      "propertyType": {
+        "type": "string",
+        "description": "Resource property type",
+        "enum": [
+          "TEXT_NUMBER",
+          "TEXT_STRING",
+          "LIST_STRING"
+        ]
+      },
+      "defaultValue": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "$ref": "#/components/schemas/string"
+          },
+          "label": {
+            "$ref": "#/components/schemas/string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Default value container"
+      },
+      "validate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/string"
+          },
+          "errorMessage": {
+            "$ref": "#/components/schemas/string"
+          },
+          "errorKey": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Validate container"
+      },
+      "links": {
+        "type": "array",
+        "description": "list of Links",
+        "items": {
+          "$ref": "#/components/schemas/link"
+        }
+      },
+      "link": {
+        "type": "object",
+        "properties": {
+          "rel": {
+            "type": "string",
+            "description": "Attribute describing relationship"
+          },
+          "href": {
+            "type": "string",
+            "description": "Absolute URL that is the subject of the link's context",
+            "format": "uri"
+          },
+          "method": {
+            "type": "string",
+            "description": "HTTP method used in the API call to request the specified resource"
+          },
+          "contentType": {
+            "type": "string",
+            "description": "MIME type indicating the document format",
+            "default": "application/json"
+          },
+          "authenticate": {
+            "type": "boolean",
+            "description": "flag showing whether authentication is required to access the linked resource",
+            "default": true
+          }
+        },
+        "description": "Link specification"
+      },
+      "attributes": {
+        "type": "array",
+        "description": "list of attributes",
+        "items": {
+          "$ref": "#/components/schemas/attribute"
+        }
+      },
+      "attribute": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "maxLength": 100,
+            "type": "string",
+            "example": "blood group"
+          },
+          "value": {
+            "maxLength": 100,
+            "type": "string",
+            "example": "O +ve"
+          }
+        },
+        "description": "Attribute representing key/value pair"
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "property": {
+            "maxLength": 250,
+            "type": "string",
+            "description": "Validation Error Property"
+          },
+          "message": {
+            "maxLength": 250,
+            "type": "string",
+            "description": "Validation Error Message"
+          },
+          "severity": {
+            "type": "string",
+            "description": "Validation Error Message",
+            "enum": [
+              "CRITICAL",
+              "WARNING"
+            ]
+          }
+        },
+        "description": "Holds Validation Errors"
+      },
+      "organizationCommonModel": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "$ref": "#/components/schemas/string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/string"
+          },
+          "id": {
+            "$ref": "#/components/schemas/string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/string"
+          }
+        },
+        "description": "Common organization Model"
+      },
+      "dateTime": {
+        "type": "string",
+        "description": "Date Time",
+        "format": "date-time"
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "$ref": "#/components/schemas/href"
+          },
+          "id": {
+            "$ref": "#/components/schemas/uuid"
+          },
+          "firstName": {
+            "$ref": "#/components/schemas/string"
+          },
+          "lastName": {
+            "$ref": "#/components/schemas/string"
+          },
+          "avatar": {
+            "$ref": "#/components/schemas/avatar"
+          }
+        },
+        "description": "User specification"
+      },
+      "href": {
+        "type": "string",
+        "description": "App URI",
+        "format": "uri",
+        "readOnly": true,
+        "example": "https://api.unizo.io/api/v1/apps/3117de47-add6-4da2-acdc-68c92eeb5c25"
+      },
+      "avatar": {
+        "type": "object",
+        "properties": {
+          "original": {
+            "$ref": "#/components/schemas/href"
+          },
+          "xSmall": {
+            "$ref": "#/components/schemas/href"
+          },
+          "small": {
+            "$ref": "#/components/schemas/href"
+          },
+          "medium": {
+            "$ref": "#/components/schemas/href"
+          },
+          "large": {
+            "$ref": "#/components/schemas/href"
+          }
+        },
+        "description": "Avatar Specification"
+      },
+      "errorList_inner": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "pattern": "^AP-\\d{7}$",
+            "type": "string"
+          },
+          "errorMessage": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "integer"
+          },
+          "correlationId": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          },
+          "property": {
+            "type": "string"
+          },
+          "help": {
+            "type": "string"
+          },
+          "additionalInfo": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "property": {
+                  "type": "string"
+                },
+                "reason": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "Error with details"
+      }
+    },
+    "headers": {
+      "CorrelationId": {
+        "description": "Correlation Identifier",
+        "schema": {
+          "$ref": "#/components/schemas/uuid"
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
